@@ -27,6 +27,8 @@ def index():
 def create(servername):
     global port_number
     global serverlist
+    if servername in serverlist:
+        return "Server name %s is already exist." % servername
     serverlist.append(servername)
     port_number += 10
     # os.system("touch %s" % servername)
@@ -35,17 +37,26 @@ def create(servername):
     os.system('echo  "%s" > /home/ensyuu2/docker/%s/index.html' %(html, servername))
     docker_cmd = ' docker run --name %s -p %d:80 -v "/home/ensyuu2/docker/%s/:/var/www/html/" -d php:5.6-apache' % (servername, port_number, servername)
     os.system(docker_cmd)
-    return "%d"%port_number
+    return "Port number:%d"%port_number
+@app.route('/delete/<servername>')
+def delete(servername):
+    if servername not in serverlist:
+        return "Server name %s is not exist." % servername
+    else:
+        serverlist.remove(servername)
+    os.system("rm -r /home/ensyuu2/docker/%s"%servername)
+    os.system("docker stop $(docker ps -a |grep %s | awk '{print $1;}')" % servername )
+    os.system("docker rm $(docker ps -a |grep %s | awk '{print $1;}')" % servername )
+    return "delete %s." % servername
 
 @app.route('/show')
 def show():
-
     url = 'curl -X POST -H "Content-Type:application/json" -d "%s" http://%s/test.php' % (escape(json.dumps({"servername":serverlist})),request.remote_addr)
     print url
     print request.remote_addr
     os.system(url)
 
-    return ""
+    return json.dumps({"servername":serverlist})
 
 
 if __name__ == "__main__":
