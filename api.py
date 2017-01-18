@@ -24,7 +24,7 @@ def index():
 @app.route('/create/<servername>')
 def create(servername):
     serverlist.append(servername)
-    os.system("touch %s" % servername)
+    #os.system("touch %s" % servername)
     return 'Thanks post: id = %s' % servername
 
 @app.route('/show')
