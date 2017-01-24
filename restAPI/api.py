@@ -33,7 +33,7 @@ def create(servername):
     port_number += 10
     # os.system("touch %s" % servername)
     os.system("mkdir /home/ensyuu2/docker/%s" % servername)
-    html = """<html><body>%s is running!</body></html>""" % servername
+    html = """<html><body><font size = "16">%s is running!</font></body></html>""" % servername
     os.system('echo  "%s" > /home/ensyuu2/docker/%s/index.html' %(html, servername))
     docker_cmd = ' docker run --name %s -p %d:80 -v "/home/ensyuu2/docker/%s/:/var/www/html/" -d php:5.6-apache' % (servername, port_number, servername)
     os.system(docker_cmd)
