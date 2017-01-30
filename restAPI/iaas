@@ -1,0 +1,38 @@
+#! /usr/bin/env python
+import argparse
+import commands
+
+IP = "192.168.1.103"
+
+def create(args):
+   url = "curl %s/create/%s"%(IP, args.serverName) 
+   print commands.getoutput(url)
+   show()
+
+def delete(args):
+   url = "curl %s/delete/%s"%(IP, args.serverName)
+   print commands.getoutput(url)
+   show() 
+   
+def show(args):
+   url = "curl %s/show"%IP
+   commands.getoutput(url)
+
+parser = argparse.ArgumentParser(description='Sub-command sample')
+subparsers = parser.add_subparsers(help='sub-command help', title='subcommands')
+
+parser_foo = subparsers.add_parser('create', help='create help')
+parser_foo.add_argument('serverName', type=str, metavar=None, action='store',
+                        default=None, help='server name')
+parser_foo.set_defaults(func=create)
+
+parser_bar = subparsers.add_parser('show', help='show help')
+parser_bar.set_defaults(func=show)
+
+parser_delete = subparsers.add_parser('delete', help='delete help')
+parser_delete.add_argument('serverName', type=str, metavar=None, action='store',
+                        default=None, help='server name')
+parser_delete.set_defaults(func=delete)
+
+args = parser.parse_args()
+args.func(args)
