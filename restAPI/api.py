@@ -51,7 +51,8 @@ def delete(servername):
 
 @app.route('/show')
 def show():
-    url = 'curl -X POST -H "Content-Type:application/json" -d "%s" http://%s/test.php' % (escape(json.dumps({"servername":serverlist})),request.remote_addr)
+    #url = 'curl -X POST -H "Content-Type:application/json" -d "%s" http://%s/test.php' % (escape(json.dumps({"servername":serverlist})),request.remote_addr)
+    url = 'curl -X POST -H "Content-Type:application/json" -d "%s" http://192.168.1.102/test.php' % (escape(json.dumps({"servername":serverlist})))
     print url
     print request.remote_addr
     os.system(url)
