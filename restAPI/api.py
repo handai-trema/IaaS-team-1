@@ -13,7 +13,7 @@ def escape(s, quoted=u'\'"\\', escape=u'\\'):
             s)
 
 serverlist = []
-port_number = 8000
+port_list = {}
 
 app = Flask(__name__)
 
@@ -30,7 +30,13 @@ def create(servername):
     if servername in serverlist:
         return "Server name %s is already exist." % servername
     serverlist.append(servername)
-    port_number += 10
+    port_number = 0
+    if request.remote_addr in port_list:
+        port_list[request.remore_addr] += 50
+        port_number = port_list[request.remote_addr]
+    else:
+        port_number = 8000 + (int(request.remote_addr.strip(".")[0])%10)*10
+        port_list[request.remote_adde] = port_number
     # os.system("touch %s" % servername)
     os.system("mkdir /home/ensyuu2/docker/%s" % servername)
     html = """<html><body><font size = "16">%s is running!</font></body></html>""" % servername
