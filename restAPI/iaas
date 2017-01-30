@@ -7,12 +7,12 @@ IP = "192.168.1.103"
 def create(args):
    url = "curl %s/create/%s"%(IP, args.serverName) 
    print commands.getoutput(url)
-   show()
+   show(None)
 
 def delete(args):
    url = "curl %s/delete/%s"%(IP, args.serverName)
    print commands.getoutput(url)
-   show() 
+   show(None) 
    
 def show(args):
    url = "curl %s/show"%IP
