@@ -25,19 +25,19 @@ def index():
 
 @app.route('/create/<servername>')
 def create(servername):
-    global port_number
     global serverlist
+    global port_list
     if servername in serverlist:
         return "Server name %s is already exist." % servername
     serverlist.append(servername)
     port_number = 0
     if request.remote_addr in port_list:
-        port_list[request.remore_addr] += 50
+        port_list[request.remote_addr] += 50
         port_number = port_list[request.remote_addr]
     else:
-        port_number = 8000 + (int(request.remote_addr.strip(".")[0])%10)*10
-        port_list[request.remote_adde] = port_number
-    # os.system("touch %s" % servername)
+        port_number = 8000 + (int(request.remote_addr.split(".")[3])%10)*10
+        port_list[request.remote_addr] = port_number
+    os.system("touch %s" % servername)
     os.system("mkdir /home/ensyuu2/docker/%s" % servername)
     html = """<html><body><font size = "16">%s is running!</font></body></html>""" % servername
     os.system('echo  "%s" > /home/ensyuu2/docker/%s/index.html' %(html, servername))
@@ -67,4 +67,4 @@ def show():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80,debug=True)
