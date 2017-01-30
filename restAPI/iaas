@@ -18,7 +18,7 @@ def show(args):
    url = "curl %s/show"%IP
    commands.getoutput(url)
 
-parser = argparse.ArgumentParser(description='Sub-command sample')
+parser = argparse.ArgumentParser(description='IaaS operation command')
 subparsers = parser.add_subparsers(help='sub-command help', title='subcommands')
 
 parser_foo = subparsers.add_parser('create', help='create help')
