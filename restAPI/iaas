@@ -2,7 +2,7 @@
 import argparse
 import commands
 
-IP = "192.168.1.103"
+IP = "192.168.1.103:8000"
 
 def create(args):
    url = "curl %s/create/%s"%(IP, args.serverName) 
