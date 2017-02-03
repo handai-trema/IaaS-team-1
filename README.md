@@ -44,7 +44,7 @@ git clone https://github.com/handai-trema/Iaas-team-1.git
 有線 LAN でホストとスイッチのポートを接続し，以下のコマンドを実行
 
 ```
-cd Iaas-team-1.git
+cd Iaas-team-1
 chmod 755 host.sh
 ./host.sh [接続に使用するインターフェース名] [接続するスイッチポートの番号]
 ```
