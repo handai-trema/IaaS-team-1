@@ -30,6 +30,12 @@ cd one_switch
 1. if.sh を 実行する．NIC の設定が行われる．
 1. コントローラのプログラムを起動する．
 
+### 各種設定
+one_switch ディレクトリ中の one_switch.conf にて必要な設定を記入．
+
+1. SERVER_IP_ADDRESS にサーバーとして用いるホストの IP アドレスを記入．
+1. ACCESS_LIMITATION_INTERVAL (T) と ACCESS_LIMITATION_COUNT (n) を記入して，アクセス制限の設定を行う．直近の T 秒間である IP アドレスからのアクセスが n 回あった場合，そのIPからのアクセスを遮断
+
 ## スイッチに接続するホストの設定
 OS は Ubuntu を想定．物理ホスト，仮想ホストのいずれも可．git をインストールしておく．
 
